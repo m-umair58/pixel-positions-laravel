@@ -17,8 +17,16 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::latest()->with(['employer', 'tags'])->get()->groupBy('featured');
+        $myJobs = Job::latest()
+        ->whereHas('employer', function ($query) {
+            $query->where('user_id', Auth::id()); // Ensure we fetch jobs where the employer is the logged-in user
+        })
+        ->with(['employer', 'tags']) // Eager load employer and tags
+        ->get();
+
 
         return view('jobs.index', [
+            'myJobs' => $myJobs,
             'jobs' => $jobs[0],
             'featuredJobs' => $jobs[1],
             'tags' => Tag::all(),

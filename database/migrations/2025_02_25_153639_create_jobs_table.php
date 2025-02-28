@@ -23,6 +23,9 @@ return new class extends Migration
             $table->boolean('featured')->default(false);
             $table->timestamps();
         });
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['job_seeker', 'employer'])->default('job_seeker');
+        });
     }
 
     /**

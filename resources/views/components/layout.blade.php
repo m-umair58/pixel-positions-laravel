@@ -12,6 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap"
         rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
 <body class="bg-black text-white font-hanken-grotesk pb-20">
@@ -24,15 +25,17 @@
             </div>
 
             <div class="space-x-6 font-bold">
-                <a href="/">Jobs</a>
+                <a href="/jobs">Jobs</a>
                 <a href="#">Careers</a>
                 <a href="#">Salaries</a>
-                <a href="#">Companies</a>
+                <a href="/companies">Companies</a>
             </div>
 
             @auth
                 <div class="space-x-6 font-bold flex">
-                    <a href="/jobs/create">Post a Job</a>
+                    @can('post-job')
+                        <a href="/jobs/create">Post a Job</a>
+                    @endcan
 
                     <form method="POST" action="/logout">
                         @csrf

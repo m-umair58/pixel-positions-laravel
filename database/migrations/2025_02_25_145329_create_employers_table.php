@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('logo');
             $table->timestamps();
         });
+        Schema::table('employers', function (Blueprint $table) {
+            $table->string('description');
+        });
     }
 
     /**
